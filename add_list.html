@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8"/>
+<title>予定の追加</title>
+<script type="text/javascript">
+var week = ["日", "月", "火", "水", "木", "金", "土"];
+function showClock1() {
+   var nowTime = new Date();
+   var nowYear = nowTime.getFullYear();
+   var nowMonth = nowTime.getMonth()+1;
+   var nowDate = nowTime.getDate();
+   var nowDay = nowTime.getDay();
+   var nowHour = nowTime.getHours();
+   var nowMin  = nowTime.getMinutes();
+
+   if( nowMonth < 10 ) nowMonth = "0" + nowMonth;
+   if( nowDate < 10 ) nowDate = "0" + nowDate;
+   if( nowMin < 10 ) nowMin = "0" + nowMin;
+
+   var msg = nowYear + "/" + nowMonth + "/" + nowDate + "(" + week[nowDay] + ")" + nowHour + ":" + nowMin;
+   document.getElementById("nowdate").innerHTML = msg;
+}
+setInterval('showClock1()',1000);
+</script>
+<style>
+.todo{
+ border-spacing:10px;
+}
+
+.btn{
+ font-size:18px;
+ width:100px;
+}
+</style>
+</head>
+
+<body>
+<div id="nowdate">日付表示欄</div><br>
+
+<script type="text/javascript">showClock1();</script>
+
+<table>
+<tr><td>
+<b>予定の追加</b><br>
+</td>
+<td>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;</td>
+<td>
+<input type="button" class="btn" value=" 戻る " onClick="location.href='javascript:history.back();'">
+</td>
+</tr>
+</table>
+
+<form name="form1" action="hozon.php" method="POST">
+<table class="todo">
+<tr>
+<td>
+日付：<br>　
+<select name="year">
+<option value="2022">2022
+<option value="2023">2023
+<option value="2024">2024
+</select>
+年&ensp;
+<select name="month">
+<option value="1">1
+<option value="2">2
+<option value="3">3
+<option value="4">4
+<option value="5">5
+<option value="6">6
+<option value="7">7
+<option value="8">8
+<option value="9">9
+<option value="10">10
+<option value="11">11
+<option value="12">12
+</select>
+月&ensp;
+<select name="date">
+<option value="1">1
+<option value="2">2
+<option value="3">3
+<option value="4">4
+<option value="5">5
+<option value="6">6
+<option value="7">7
+<option value="8">8
+<option value="9">9
+<option value="10">10
+<option value="11">11
+<option value="12">12
+<option value="13">13
+<option value="14">14
+<option value="15">15
+<option value="16">16
+<option value="17">17
+<option value="18">18
+<option value="19">19
+<option value="20">20
+<option value="21">21
+<option value="22">22
+<option value="23">23
+<option value="24">24
+<option value="25">25
+<option value="26">26
+<option value="27">27
+<option value="28">28
+<option value="29">29
+<option value="30">30
+<option value="31">31
+</select>
+日<br>
+</td>
+</tr>
+
+<tr>
+<td>
+内容：<br>　
+<textarea required name="schedule" rows=8 cols=50></textarea><br>
+</td>
+</tr>
+
+<tr>
+<td align="center">
+<input type="reset" class="btn" value=" クリア ">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<input type="submit" class="btn" value=" 決定 ">
+</td>
+</tr>
+
+</table>
+
+</form>
+
+</body>
+</html>

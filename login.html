@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8"/>
+<title>ToDoリストログイン</title>
+<script type="text/javascript">
+function login_check(){
+  
+  var check1 = document.getElementById("email").value.indexOf('@');
+  var check2 = document.getElementById("email").value.indexOf(' ');
+
+  if(check1 !== -1 && check2 === -1){
+    login()
+  }
+  else{
+    login_error()
+  }
+}
+
+function login(){
+  Url = "login.php?email=" + document.getElementById("email").value;
+  location.href= Url;
+}
+
+function login_error(){
+  var error_msg1 = document.getElementById("error1");
+  var error_msg2 = document.getElementById("error2");
+  error_msg1.innerHTML = "エラー";
+  error_msg2.innerHTML = "：もう一度入力してください"; 
+}
+</script>
+<style type="text/css">
+#error1{
+  color:red;
+}
+
+span{
+  font-size:18px;
+}
+</style>
+</head>
+<body>
+
+<h2>メールアドレス入力画面</h2>
+<span id ="error1"></span>
+<span id ="error2"></span><br>
+<input type="text" id="email" name="メールアドレス" size=30><br>
+<input type="button" value="ログイン" onClick="login_check()">
+
+</body>
+</html>

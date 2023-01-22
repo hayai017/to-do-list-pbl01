@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8"/>
+<title>予定の追加</title>
+<script type="text/javascript" src="https://zeptojs.com/zepto.min.js"></script>
+<script type="text/javascript">
+var week = ["日", "月", "火", "水", "木", "金", "土"];
+function showClock1() {
+   var nowTime = new Date();
+   var nowYear = nowTime.getFullYear();
+   var nowMonth = nowTime.getMonth()+1;
+   var nowDate = nowTime.getDate();
+   var nowDay = nowTime.getDay();
+   var nowHour = nowTime.getHours();
+   var nowMin  = nowTime.getMinutes();
+
+ if( nowMonth < 10 ) nowMonth = "0" + nowMonth;
+ if( nowDate < 10 ) nowDate = "0" + nowDate;
+ if( nowMin < 10 ) nowMin = "0" + nowMin;
+
+   var msg = nowYear + "/" + nowMonth + "/" + nowDate + "(" + week[nowDay] + ")" + nowHour + ":" + nowMin;
+   document.getElementById("nowdate").innerHTML = msg;
+}
+setInterval('showClock1()',1000);
+ 
+var param = location.search;
+
+function getParam(name) {
+  var url = window.location.href;
+  name = name.replace(/[\[\]]/g, "\\$&");
+  var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+      results = regex.exec(url);
+  if (!results) return null;
+  if (!results[2]) return '';
+  return decodeURIComponent(results[2].replace(/\+/g, " "));
+}
+
+ $.get("schedule.txt",function(data){ 
+ var a = data.split("\n"); //改行で区切る 
+ var b = a[getParam('num')].split(","); //カンマで区切る  
+ document.getElementById("year").innerHTML = b[0];
+ document.getElementById("month").innerHTML = b[1];
+ document.getElementById("date").innerHTML = b[2];
+ document.getElementById("schedule").innerHTML = b[3]; 
+ });
+
+function yes(){
+  var $num = getParam('num');
+  location.href="delete.php?num=" + $num; //ホーム画面のファイル名に変えてください
+}
+</script>
+<style>
+.todo{
+ border-spacing:10px;
+}
+
+.btn{
+ font-size:18px;
+ width:100px;
+}
+</style>
+</head>
+
+<body>
+<div id="nowdate">日付表示欄</div><br>
+
+<script type="text/javascript">showClock1();</script>
+
+<table>
+<tr><td>
+<b>予定の削除</b><br>
+</td></tr>
+</table>
+
+<table class="todo">
+<tr>
+<td>
+日付：<br>　
+<span id="year"></span>年&ensp;
+<span id="month"></span>月&ensp;
+<span id="date"></span>日<br>
+</td>
+</tr>
+
+<tr>
+<td>
+内容：<br>　
+<textarea id="schedule" rows=8 cols=50 readonly></textarea><br><br>
+</td>
+</tr>
+
+<tr>
+<td align="center">
+<font size="+1" color="red">を削除します。本当によろしいですか？</font>
+</td>
+</tr>
+
+<tr>
+<td align="center">
+<br>
+<input type="button" class="btn" value=" いいえ " onClick="location.href='javascript:history.back();'">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<input type="button" class="btn" value=" はい " onClick="yes()">
+</td>
+</tr>
+
+</table>
+
+
+</body>
+</html>
